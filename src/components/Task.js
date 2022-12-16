@@ -10,7 +10,7 @@ const Task = ({ id, title, isComplete, updateIsComplete }) => {
   const clickTask = (id) => {
     console.log('inside the clickTask function');
 
-    updateIsComplete(id, !isComplete);
+    updateIsComplete(id);
     setComplete(!complete);
   };
 

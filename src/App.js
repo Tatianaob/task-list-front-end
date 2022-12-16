@@ -23,7 +23,7 @@ const App = () => {
 
   const [tasksList, setTasksList] = useState(initialCopy);
 
-  const updateIsComplete = (taskId, updatedTask) => {
+  const updateIsComplete = (taskId) => {
     console.log('updateIsComplete is logged');
     ///logic to update the taskList everytime the user click the task
     const newTasksList = [];
@@ -33,9 +33,9 @@ const App = () => {
       }else{
         const newTask = {
           ...task,
-          isComplete: updatedTask
+          isComplete: !task.isComplete,
         };
-      console.log('task.isComplete', task.isComplete);
+      console.log('task.isComplete', newTask.isComplete);
       newTasksList.push(newTask);
       }
     }
