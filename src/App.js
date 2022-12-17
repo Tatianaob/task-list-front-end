@@ -43,6 +43,16 @@ const App = () => {
 
   };
   
+  const deleteTask = (taskId) => {
+    console.log('deleteTask is called');
+    const newTasksList = [];
+    for(const task of tasksList) {
+      if (task.id !== taskId) {
+        newTasksList.push(task);
+      }
+    }
+    setTasksList(newTasksList);
+  };
 
   return (
     <div className="App">
@@ -50,7 +60,8 @@ const App = () => {
         <h1>Ada&apos;s Task List</h1>
       </header>
       <main>
-        <div>{<TaskList tasks={TASKS} updateIsComplete={updateIsComplete} />}</div>
+        {/* <div>{<TaskList tasks={TASKS} updateIsComplete={updateIsComplete}/>}</div> */}
+        <div>{<TaskList tasks={tasksList} updateIsComplete={updateIsComplete} deleteTask={deleteTask}/>}</div>
       </main>
     </div>
   );
