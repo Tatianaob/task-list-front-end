@@ -54,21 +54,29 @@ const App = () => {
     console.log('updateIsComplete is logged');
     ///logic to update the taskList everytime the user click the task
     const newTasksList = [];
-    for(const task of tasksList) {
-      if(task.id !== taskId) {
-        newTasksList.push(task);
-      }else{
-        const newTask = {
-          ...task,
-          isComplete: !task.isComplete,
-        };
-      console.log('task.isComplete', newTask.isComplete);
-      newTasksList.push(newTask);
+  
+    ///if task.isComplete = false ==>call mark_complete else call mar_incomplete
+    axios.patch(`${URL}/${taskId}/mark_complete`)
+    .then((res) => {
+      for(const task of tasksList) {
+        if(task.id !== taskId) {
+          newTasksList.push(task);
+        }else{
+          const newTask = {
+            ...task,
+            isComplete: !task.isComplete,
+          };
+        console.log('task.isComplete', newTask);
+        newTasksList.push(newTask);
+        }
       }
-    }
-    setTasksList(newTasksList);
-
+      setTasksList(newTasksList);
+  })
+    .catch((err) => {
+      console.log(err);
+    });
   };
+
   
   const deleteTask = (taskId) => {
     console.log('deleteTask is called');
