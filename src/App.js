@@ -42,8 +42,6 @@ const App = () => {
   },[]);
 
 
-
-
   // const initialCopy = TASKS.map(task => {
   //   return {...task};
   // });
@@ -74,6 +72,7 @@ const App = () => {
             isComplete: !task.isComplete
           };
         console.log('task.isComplete', newTask);
+        console.log(res);
         newTasksList.push(newTask);
         }
       }
@@ -87,13 +86,20 @@ const App = () => {
   
   const deleteTask = (taskId) => {
     console.log('deleteTask is called');
-    const newTasksList = [];
-    for(const task of tasksList) {
-      if (task.id !== taskId) {
-        newTasksList.push(task);
+    axios.delete(`${URL}/${taskId}`)
+    .then(() => {
+      const newTasksList = [];
+      for(const task of tasksList) {
+        if (task.id !== taskId) {
+          newTasksList.push(task);
+        }
       }
-    }
-    setTasksList(newTasksList);
+      setTasksList(newTasksList);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
   };
 
   return (
