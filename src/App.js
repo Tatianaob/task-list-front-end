@@ -50,21 +50,28 @@ const App = () => {
 
   // const [tasksList, setTasksList] = useState(initialCopy);
 
-  const updateIsComplete = (taskId) => {
+  const updateIsComplete = (taskId, isComplete) => {
     console.log('updateIsComplete is logged');
-    ///logic to update the taskList everytime the user click the task
-    const newTasksList = [];
-  
+    ///logic to update the taskList everytime the user click the task    
+    
+    let status = '';
+    // if the task.is_complete is false => call status = mark_complete request
+    //if the task.is_complete is true => call status_mark_incomplete request
+    if (isComplete) {
+      status = 'mark_incomplete';
+    } else {status = 'mark_complete';}
+
     ///if task.isComplete = false ==>call mark_complete else call mar_incomplete
-    axios.patch(`${URL}/${taskId}/mark_complete`)
+    const newTasksList = [];
+    axios.patch(`${URL}/${taskId}/${status}`)
     .then((res) => {
       for(const task of tasksList) {
         if(task.id !== taskId) {
-          newTasksList.push(task);
-        }else{
+          newTasksList.push(task);}
+        else{
           const newTask = {
             ...task,
-            isComplete: !task.isComplete,
+            isComplete: !task.isComplete
           };
         console.log('task.isComplete', newTask);
         newTasksList.push(newTask);
