@@ -34,7 +34,7 @@ const NewTaskForm = (props) => {
     <div className="forms">
     <form onSubmit={handleNewTaskSubmit}>
     <h3> Submit New Task</h3>
-      <label htmlFor="title">Task Title</label>
+      <label htmlFor="title">New Task Title</label>
       <input 
       type="text" 
       id="title" 
@@ -43,7 +43,7 @@ const NewTaskForm = (props) => {
       onChange={handleChange}
       ></input>
 
-      <label htmlFor="description">Task Description</label>
+      <label htmlFor="description"> New Task Description</label>
       <input 
       type="text" 
       id="description" 
@@ -52,8 +52,8 @@ const NewTaskForm = (props) => {
       onChange={handleChange}
       ></input>
 
-      {/* <label htmlFor="isComplete">Task Status (enter true or false)</label> */}
-      {/* <input 
+      {/* <label htmlFor="isComplete">Task Status (enter true or false)</label>
+      <input 
       type="text" 
       id="isComplete" 
       name="isComplete" 
