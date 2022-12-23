@@ -3,6 +3,7 @@ import TaskList from './components/TaskList.js';
 import './App.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import NewTaskForm from './components/NewTaskForm.js';
 
 // const TASKS = [
 //   {
@@ -21,7 +22,8 @@ const App = () => {
   const [tasksList, setTasksList ] =useState([]);
   const URL = 'https://task-list-api-c17.herokuapp.com/tasks';
 
-  useEffect(() => {
+  //helper function to call API
+  const fetchAllTasks = () => {
     axios
     .get(URL)
     .then((res)=> {
@@ -39,7 +41,10 @@ const App = () => {
     .catch((err) => {
       console.log(err);
     });
-  },[]);
+  };
+
+  //call useEffect to get all task- writing funcnationlity to call axios
+  useEffect(fetchAllTasks,[]);
 
 
   // const initialCopy = TASKS.map(task => {
@@ -101,6 +106,48 @@ const App = () => {
     });
 
   };
+  //create a callback function to add new Task
+  const addTask = (newTaskinfo) => {
+    console.log('addTask is called here');
+    axios.post(URL, newTaskinfo)
+    .then((response) => {
+      console.log(response);
+      fetchAllTasks();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  };
+//------- gotta fetch tasks from url
+  // const addTaskData = (newTask) => {
+  //   axios.post(URL,newTask)
+  //   .then((response) => {
+  //     console.log(response);
+  //     axios
+  //     .get(URL)
+  //     .then((res)=> {
+  //       console.log('inside useEffect',res);
+  //       const tasksAPIResCopy = res.data.map((task)=>{
+  //         return {
+  //           id: task.id,
+  //           description: task.description,
+  //           isComplete: task.is_complete,
+  //           title: task.title,
+  //         };
+  //       });
+  //       setTasksList(tasksAPIResCopy);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   });
+    
+  // };
+
+
 
   return (
     <div className="App">
@@ -110,6 +157,7 @@ const App = () => {
       <main>
         {/* <div>{<TaskList tasks={TASKS} updateIsComplete={updateIsComplete}/>}</div> */}
         <div>{<TaskList tasks={tasksList} updateIsComplete={updateIsComplete} deleteTask={deleteTask}/>}</div>
+      <NewTaskForm addTaskCallbackFunc={addTask}></NewTaskForm>
       </main>
     </div>
   );
